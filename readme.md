@@ -14,6 +14,7 @@
 ## Installation
 ### Create Docker Network
 ```bash
+git clone https://github.com/MuratBudun/GenericDockerEnv.git
 docker network create gen_dev_net
 ```
 
@@ -45,7 +46,28 @@ docker compose -f ./compose/docker-compose-dbgate.yml --env-file ./compose/_pass
 docker compose -f ./compose/docker-compose-dbgate.yml --env-file ./compose/_passwords.env --env-file ./compose/dbgate.env up -d
 ```
 ## DbGate
-http://localhost:8082/
+http://localhost:8082
+
+![image](https://github.com/user-attachments/assets/fc20d137-0e3a-435f-8c02-f6455ca266c2)
+
+## Microsoft SQL Server 2022 Developer Edition
+
+![image](https://github.com/user-attachments/assets/4fc3985e-3f69-4090-9b81-3a5286a632ed)
+
+### Connection
+* Server: **localhost**
+* Port: **1466**
+* Internal Port: **1433**
+* User: **sa**
+* Password: **Zh7Ebc9zjzzU8U6Bq8Ph**
+### Example Connection String
+```
+Data Source=localhost,1466;Initial Catalog=master;User ID=sa;Password=Zh7Ebc9zjzzU8U6Bq8Ph;
+```
+**Note:** You can chnage this password on *./env/_passwords.env* file.
+```
+MSSQL_SA_PASSWORD=Zh7Ebc9zjzzU8U6Bq8Ph
+```
 
 ## MongoDb and Mongo Express
 ### Connection
