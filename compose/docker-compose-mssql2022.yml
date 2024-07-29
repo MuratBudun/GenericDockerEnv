@@ -1,0 +1,29 @@
+version: "3.2"
+services:
+  gen-mssql2022:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: gen-mssql2022
+    restart: always
+    environment:
+      ACCEPT_EULA: 'Y'
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD}
+      MSSQL_DATA_DIR: /var/opt/mssql/data
+      MSSQL_BACKUP_DIR: /var/opt/mssql/backup
+      MSSQL_PID: 'Developer' 
+      MSSQL_TCP_PORT: 1433 
+      MSSQL_COLLATION: SQL_Latin1_General_CP1_CI_AS
+      MSSQL_MEMORY_LIMIT_MB: 2048
+    ports: 
+      - "1466:1433"
+    networks:
+      - gen_dev_net      
+    volumes:
+      - ../volumes/mssql2022/data:/var/opt/mssql/data
+      - ../volumes/mssql2022/backup:/var/opt/mssql/backup
+      - ../volumes/mssql2022/log:/var/opt/mssql/log
+      - ../volumes/mssql2022/secrets:/var/opt/mssql/secrets
+
+networks:
+  gen_dev_net:
+    external: true
+    driver: bridge      

@@ -1,0 +1,45 @@
+version: "3.2"
+services:
+  gen-mongo:
+    image: mongo
+    container_name: 'gen-mongodb'
+    restart: always
+    ports:
+      - 27170:27017
+    networks:
+      - gen_dev_net
+    volumes:
+      - ../volumes/mongodb/data:/data
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+    healthcheck:
+      test: echo 'db.stats().ok' | mongo localhost:27017/test --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+
+  gen-mongo-express:
+    image: mongo-express
+    container_name: gen-mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    networks:
+        - gen_dev_net
+    environment:
+      ME_CONFIG_MONGODB_AUTH_USERNAME: ${MONGO_ROOT_USER}
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_ROOT_USER}
+      ME_CONFIG_MONGODB_AUTH_PASSWORD: ${MONGO_ROOT_PASSWORD}      
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_ROOT_PASSWORD}
+      ME_CONFIG_MONGODB_URL: mongodb://${MONGO_ROOT_USER}:${MONGO_ROOT_PASSWORD}@gen-mongo:27017/
+    depends_on:
+      - gen-mongo
+    links: 
+      - gen-mongo
+
+networks:
+  gen_dev_net:
+    external: true
+    driver: bridge      

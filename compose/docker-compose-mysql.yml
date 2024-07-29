@@ -1,0 +1,35 @@
+version: "3.2"
+services:
+  gen-mysql:
+    image: mariadb:10.6
+    container_name: gen-mysql8
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+       - '6603:3306'     
+    networks:
+      - gen_dev_net      
+    volumes:
+      - ../volumes/mysql8:/var/lib/mysql
+
+  gen-phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: gen-phpmyadmin
+    depends_on:
+      - gen-mysql
+    restart: always
+    ports:
+      - '8084:80'
+    networks:
+      - gen_dev_net      
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: gen-mysql
+      PMA_USER: root
+      PMA_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+
+networks:
+  gen_dev_net:
+    external: true
+    driver: bridge      

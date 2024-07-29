@@ -1,0 +1,45 @@
+version: "3.2"
+services:
+  gen-dbgate:
+    image: dbgate/dbgate
+    container_name: gen-dbgate
+    restart: always
+    ports:
+      - 8082:3000
+    networks:
+      - gen_dev_net
+    volumes:
+      - ../volumes/dbgate-data:/root/.dbgate
+    environment:
+      CONNECTIONS: con1,con2,con3,con4
+
+      LABEL_con1: GenericEnv-MySql
+      SERVER_con1: gen-mysql
+      USER_con1: root
+      PASSWORD_con1: ${MYSQL_ROOT_PASSWORD}
+      PORT_con1: 3306
+      ENGINE_con1: mysql@dbgate-plugin-mysql
+
+      LABEL_con2: GenericEnv-Postgres
+      SERVER_con2: gen-postgres
+      USER_con2: ${POSTGRES_USER}
+      PASSWORD_con2: ${POSTGRES_PASSWORD}
+      PORT_con2: 5432
+      ENGINE_con2: postgres@dbgate-plugin-postgres
+
+      LABEL_con3: GenericEnv-MongoDB
+      SERVER_con3: gen-mongo
+      URL_con3: mongodb://${MONGO_ROOT_USER}:${MONGO_ROOT_PASSWORD}@gen-mongo:27017/
+      ENGINE_con3: mongo@dbgate-plugin-mongo
+
+      LABEL_con4: GenericEnv-MsSQL2022
+      SERVER_con4: gen-mssql2022
+      USER_con4: sa
+      PASSWORD_con4: ${MSSQL_SA_PASSWORD}
+      PORT_con4: 1433
+      ENGINE_con4: mssql@dbgate-plugin-mssql
+ 
+networks:
+  gen_dev_net:
+    external: true
+    driver: bridge      
