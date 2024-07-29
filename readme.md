@@ -10,11 +10,15 @@
 - pgAdmin | https://www.pgadmin.org/
 - DbGate | https://dbgate.org/
 
+![image](https://github.com/user-attachments/assets/14220195-5161-4159-82de-cde430dff623)
 
 ## Installation
-### Create Docker Network
+### Clone
 ```bash
 git clone https://github.com/MuratBudun/GenericDockerEnv.git
+```
+### Create Docker Network
+```bash
 docker network create gen_dev_net
 ```
 
