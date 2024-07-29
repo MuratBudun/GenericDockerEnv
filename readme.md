@@ -1,4 +1,4 @@
-# Generic Docker Envoriment for Development
+# Generic Docker Envoriments for Developers
 
 ## Container List
 - MongoDb | https://www.mongodb.com
