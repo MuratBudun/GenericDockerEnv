@@ -52,14 +52,11 @@ Password file path: **./env/_passwords.env**
   ```
 
 ### Recreate Passwords
-<span style="color:red">**Important:** This process will cause you to lose your data.</span>
-
-**MySQL, PostgreSQL** and **Microsoft SQL Server 2022** keep passwords in the **./volumes** directory. 
-
-These programs will not work when you **re-create** your password. You can activate new passwords by deleting the relevant program data from the volumes folder. 
-
-Before doing this, close the running applications with the "**.\docker-compose.ps1 all down**" command. (Linux / macOS "**.\docker-compose.sh all down**")
-
+> [!IMPORTANT]
+> This process will cause you to lose your data.
+> **MySQL, PostgreSQL** and **Microsoft SQL Server 2022** keep passwords in the **./volumes** directory. 
+> These programs will not work when you **re-create** your password. You can activate new passwords by deleting the relevant program data from the volumes folder. 
+> Before doing this, close the running applications with the "**.\docker-compose.ps1 all down**" command. (Linux / macOS "**.\docker-compose.sh all down**")
 
 Password file path: **./env/_passwords.env**
 * Windows
@@ -125,8 +122,8 @@ http://localhost:8082
 ```
 Data Source=localhost,1466;Initial Catalog=master;User ID=sa;Password={MSSQL_SA_PASSWORD};
 ```
-**Note:** 
-The **MSSQL_SA_PASSWORD** variable is the contents of ./env/_passwords.env cards. If you cannot find the ./env/_passwords.env file, repeat the password creation step.
+> [!NOTE]
+> The **MSSQL_SA_PASSWORD** variable is in the **./env/_passwords.env** file. If you cannot find the **./env/_passwords.env** file, repeat the password creation step.
 
 
 ## MongoDb and Mongo Express
@@ -140,8 +137,8 @@ The **MSSQL_SA_PASSWORD** variable is the contents of ./env/_passwords.env cards
 ```
 mongodb://root:{MONGO_ROOT_PASSWORD}@localhost:27170
 ```
-**Note:** 
-The **MONGO_ROOT_PASSWORD** variable is the contents of ./env/_passwords.env cards. If you cannot find the ./env/_passwords.env file, repeat the password creation step.
+> [!NOTE]
+> The **MONGO_ROOT_PASSWORD** variable is in the **./env/_passwords.env** file. If you cannot find the **./env/_passwords.env** file, repeat the password creation step.
 
 ### Mongo Express
 * http://localhost:8081
@@ -157,8 +154,8 @@ The **MONGO_ROOT_PASSWORD** variable is the contents of ./env/_passwords.env car
 * User: **root**
 * Password: **{MYSQL_ROOT_PASSWORD}**
 
-**Note:** 
-The **MYSQL_ROOT_PASSWORD** variable is the contents of ./env/_passwords.env cards. If you cannot find the ./env/_passwords.env file, repeat the password creation step.
+> [!NOTE]
+> The **MYSQL_ROOT_PASSWORD** variable is in the **./env/_passwords.env** file. If you cannot find the **./env/_passwords.env** file, repeat the password creation step.
 
 ### phpMyAdmin
 http://localhost:8084
@@ -172,10 +169,14 @@ http://localhost:8084
 * User: **postgres**
 * Password: **{POSTGRES_PASSWORD}**
 
-**Note:** 
-The **POSTGRES_PASSWORD** variable is the contents of ./env/_passwords.env cards. If you cannot find the ./env/_passwords.env file, repeat the password creation step.
+> [!NOTE]
+> The **POSTGRES_PASSWORD** variable is in the **./env/_passwords.env** file. If you cannot find the **./env/_passwords.env** file, repeat the password creation step.
 
 ### pgAdmin
 * http://localhost:8083
 * email: **pgadmin@gen-env.com**
 * password: **{POSTGRES_PASSWORD}**
+
+![image](https://github.com/user-attachments/assets/68b71b0a-5f1d-4c15-9f26-bb55a79bb7c8)
+
+![image](https://github.com/user-attachments/assets/c3aa7135-33b9-4289-b32d-5b758b64dda0)
