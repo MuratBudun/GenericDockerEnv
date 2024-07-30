@@ -1,6 +1,6 @@
-# Generic Docker Envoriments for Developers
+# Generic Docker Environments for Developers
 
-## Container List
+# Container List
 - MongoDb | https://www.mongodb.com
 - MongoExpress | https://github.com/mongo-express/mongo-express
 - Microsoft SQL Server 2022 Developer Edition | https://www.microsoft.com/en/sql-server/sql-server-2022
@@ -12,50 +12,104 @@
 
 ![image](https://github.com/user-attachments/assets/14220195-5161-4159-82de-cde430dff623)
 
-## Installation
+# Prerequisites
+* [Docker](https://www.docker.com)
+* Windows
+  * [Set up Linux Containers on Windows 10](https://learn.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-start-windows-10-linux)
+  * [PowerShell](https://learn.microsoft.com/en-us/powershell/)
+
+Windows Useful Links
+* [Set-ExecutionPolicy](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-7.4)
+
+
+# Getting Started
 ### Clone
 ```bash
 git clone https://github.com/MuratBudun/GenericDockerEnv.git
+cd GenericDockerEnv
 ```
+
+### chmod +x for Linux / maxOS
+```bash
+chmod +x create-passwords.sh
+chmod +x docker-compose.sh
+```
+
 ### Create Docker Network
 ```bash
 docker network create gen_dev_net
 ```
 
+### Create Passwords
+Password file path: **./env/_passwords.env**
+* Windows
+  ```
+  ./create-passwords.ps1
+  ```
+* Linux / macOS
+  ```bash
+  ./create-passwords.sh
+  ```
+
+### Recreate Passwords
+> [!IMPORTANT]
+> This process will cause you to lose your data.
+> **MySQL, PostgreSQL** and **Microsoft SQL Server 2022** keep passwords in the **./volumes** directory. 
+> These programs will not work when you **re-create** your password. You can activate new passwords by deleting the relevant program data from the volumes folder. 
+> Before doing this, close the running applications with the "**.\docker-compose.ps1 all down**" command. (Linux / macOS "**.\docker-compose.sh all down**")
+
+Password file path: **./env/_passwords.env**
+* Windows
+  ```
+  ./create-passwords.ps1 o
+  ```
+* Linux / macOS
+  ```bash
+  ./create-passwords.sh o
+  ```
+
 ## How To Use
 ### Windows PowerShell
 #### Useage:
-```powershell
-.\docker-compose.ps1 <Option> <Action>
+* Options and Actions
+  ```
+  Actions: up | down
+  Options: all | dbgate | mongo | mysql |  mssql2022 | postgres
+  ```
+* Windows
+  ```
+  .\docker-compose.ps1 <Option> <Action>
+  ```
+* Linux / macOS
+  ```bash
+  .\docker-compose.sh <Option> <Action>
+  ```
 
-Actions: up | down
-Options: all
-        dbgate
-        mongo
-        mysql
-        mssql2022
-        postgres
-```
 #### Examples:
-```powershell
-.\docker-compose.ps1 all up        
-.\docker-compose.ps1 all down
-.\docker-compose.ps1 dbgate up
+* Windows
+  ```
+  .\docker-compose.ps1 all up        
+  .\docker-compose.ps1 all down
+  .\docker-compose.ps1 dbgate up
+  ```
+* Linux / macOS
+  ```
+  .\docker-compose.sh all up        
+  .\docker-compose.sh all down
+  .\docker-compose.sh dbgate up
+  ```
+* Docker CLI
+  ```
+  docker compose -f ./compose/docker-compose-dbgate.yml --env-file ./env/_passwords.env --env-file ./env/dbgate.env up -d
+  ```
 
-Direct Command Example:
-docker compose -f ./compose/docker-compose-dbgate.yml --env-file ./compose/_passwords.env --env-file ./compose/dbgate.env up -d
-```
-#### Docker Compose Command Usage:
-```powershell
-docker compose -f ./compose/docker-compose-dbgate.yml --env-file ./compose/_passwords.env --env-file ./compose/dbgate.env up -d
-```
 ## DbGate
 http://localhost:8082
 
 ![image](https://github.com/user-attachments/assets/fc20d137-0e3a-435f-8c02-f6455ca266c2)
 
-## Microsoft SQL Server 2022 Developer Edition
 
+## Microsoft SQL Server 2022 Developer Edition
 ![image](https://github.com/user-attachments/assets/4fc3985e-3f69-4090-9b81-3a5286a632ed)
 
 ### Connection
@@ -63,15 +117,14 @@ http://localhost:8082
 * Port: **1466**
 * Internal Port: **1433**
 * User: **sa**
-* Password: **Zh7Ebc9zjzzU8U6Bq8Ph**
+* Password: **{MSSQL_SA_PASSWORD}**
 ### Example Connection String
 ```
-Data Source=localhost,1466;Initial Catalog=master;User ID=sa;Password=Zh7Ebc9zjzzU8U6Bq8Ph;
+Data Source=localhost,1466;Initial Catalog=master;User ID=sa;Password={MSSQL_SA_PASSWORD};
 ```
-**Note:** You can chnage this password on *./env/_passwords.env* file.
-```
-MSSQL_SA_PASSWORD=Zh7Ebc9zjzzU8U6Bq8Ph
-```
+> [!NOTE]
+> The **MSSQL_SA_PASSWORD** variable is in the **./env/_passwords.env** file. If you cannot find the **./env/_passwords.env** file, repeat the password creation step.
+
 
 ## MongoDb and Mongo Express
 ### Connection
@@ -79,20 +132,18 @@ MSSQL_SA_PASSWORD=Zh7Ebc9zjzzU8U6Bq8Ph
 * Port: **27170**
 * Internal Port: **27017**
 * User: **root**
-* Password: **qJFC0yfJFEczxJR18xrc**
+* Password: **{MONGO_ROOT_PASSWORD}**
 ### Example Connection String
 ```
-mongodb://root:qJFC0yfJFEczxJR18xrc@localhost:27170
+mongodb://root:{MONGO_ROOT_PASSWORD}@localhost:27170
 ```
-**Note:** You can chnage this password on *./env/_passwords.env* file.
-```
-MONGO_ROOT_USER=root
-MONGO_ROOT_PASSWORD=qJFC0yfJFEczxJR18xrc
-```
+> [!NOTE]
+> The **MONGO_ROOT_PASSWORD** variable is in the **./env/_passwords.env** file. If you cannot find the **./env/_passwords.env** file, repeat the password creation step.
+
 ### Mongo Express
 * http://localhost:8081
 * user: **admin**
-* password: **pass**
+* password: **{MONGO_ROOT_PASSWORD}**
 
 
 ## MySQL and phpMyAdmin
@@ -101,12 +152,10 @@ MONGO_ROOT_PASSWORD=qJFC0yfJFEczxJR18xrc
 * Port: **6603**
 * Internal Port: **3306**
 * User: **root**
-* Password: **saNZ3VsFoDUTzwN05BG8**
+* Password: **{MYSQL_ROOT_PASSWORD}**
 
-**Note:** You can chnage this password on *./env/_passwords.env* file.
-```
-MYSQL_ROOT_PASSWORD=saNZ3VsFoDUTzwN05BG8
-```
+> [!NOTE]
+> The **MYSQL_ROOT_PASSWORD** variable is in the **./env/_passwords.env** file. If you cannot find the **./env/_passwords.env** file, repeat the password creation step.
 
 ### phpMyAdmin
 http://localhost:8084
@@ -118,18 +167,16 @@ http://localhost:8084
 * Port: **5234**
 * Internal Port: **5432**
 * User: **postgres**
-* Password: **RaxQR54HY5i1bmjL9ppK**
+* Password: **{POSTGRES_PASSWORD}**
 
-**Note:** You can chnage this password on *./env/_passwords.env* file.
-```
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=RaxQR54HY5i1bmjL9ppK
-```
+> [!NOTE]
+> The **POSTGRES_PASSWORD** variable is in the **./env/_passwords.env** file. If you cannot find the **./env/_passwords.env** file, repeat the password creation step.
 
 ### pgAdmin
 * http://localhost:8083
 * email: **pgadmin@gen-env.com**
-* password: **RaxQR54HY5i1bmjL9ppK**
+* password: **{POSTGRES_PASSWORD}**
 
+![image](https://github.com/user-attachments/assets/68b71b0a-5f1d-4c15-9f26-bb55a79bb7c8)
 
-
+![image](https://github.com/user-attachments/assets/c3aa7135-33b9-4289-b32d-5b758b64dda0)

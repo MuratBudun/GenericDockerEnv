@@ -11,7 +11,7 @@ services:
     volumes:
       - ../volumes/mongodb/data:/data
     environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER}
+      MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
     healthcheck:
       test: echo 'db.stats().ok' | mongo localhost:27017/test --quiet
@@ -29,11 +29,16 @@ services:
     networks:
         - gen_dev_net
     environment:
-      ME_CONFIG_MONGODB_AUTH_USERNAME: ${MONGO_ROOT_USER}
-      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_ROOT_USER}
-      ME_CONFIG_MONGODB_AUTH_PASSWORD: ${MONGO_ROOT_PASSWORD}      
+      ME_CONFIG_MONGODB_URL: mongodb://root:${MONGO_ROOT_PASSWORD}@gen-mongo:27017/
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_ROOT_PASSWORD}
-      ME_CONFIG_MONGODB_URL: mongodb://${MONGO_ROOT_USER}:${MONGO_ROOT_PASSWORD}@gen-mongo:27017/
+      ME_CONFIG_MONGODB_SERVER: gen-mongo
+      ME_CONFIG_MONGODB_PORT: 27017
+
+      ME_CONFIG_BASICAUTH: true
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: ${MONGO_ROOT_PASSWORD}
+
     depends_on:
       - gen-mongo
     links: 

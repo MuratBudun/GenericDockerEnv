@@ -22,14 +22,14 @@ services:
 
       LABEL_con2: GenericEnv-Postgres
       SERVER_con2: gen-postgres
-      USER_con2: ${POSTGRES_USER}
+      USER_con2: postgres
       PASSWORD_con2: ${POSTGRES_PASSWORD}
       PORT_con2: 5432
       ENGINE_con2: postgres@dbgate-plugin-postgres
 
       LABEL_con3: GenericEnv-MongoDB
       SERVER_con3: gen-mongo
-      URL_con3: mongodb://${MONGO_ROOT_USER}:${MONGO_ROOT_PASSWORD}@gen-mongo:27017/
+      URL_con3: mongodb://root:${MONGO_ROOT_PASSWORD}@gen-mongo:27017/
       ENGINE_con3: mongo@dbgate-plugin-mongo
 
       LABEL_con4: GenericEnv-MsSQL2022
