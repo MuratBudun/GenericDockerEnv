@@ -9,6 +9,7 @@ $composeFiles = @{
     "mysql" = "docker-compose-mysql.yml";
     "mssql2022"= "docker-compose-mssql2022.yml";
     "postgres" = "docker-compose-postgres.yml";
+    "rabbitmq" = "docker-compose-rabbitmq.yml";
 }
 
 $envFiles = @{
@@ -17,6 +18,7 @@ $envFiles = @{
     "mysql" = "mysql.env";
     "mssql2022" = "mssql2022.env";
     "postgres" = "postgres.env";
+    "rabbitmq" = "rabbitmq.env";
 }
 
 function ListOptions {

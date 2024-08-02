@@ -26,7 +26,7 @@ function CreateRandomPassword {
     $specialCount = 1
 
     $passwordArray = $upper + $lower + $digit
-    $passwordArray += 1..($length - $passwordArray.Length - $specialCount) | ForEach-Object { [char[]]('A'..'Z') + ('a'..'z') + ('0'..'9') | Get-Random }
+    $passwordArray += 1..($length - $passwordArray.Length - $specialCount) | ForEach-Object { [char[]]([char]'A'..[char]'Z') + ([char]'a'..[char]'z') + ([char]'0'..[char]'9') | Get-Random }
     $passwordArray += $special
 
     $passwordArray = $passwordArray | Sort-Object { Get-Random }
@@ -42,11 +42,12 @@ function CreateEnvFile {
         "MONGO_ROOT_PASSWORD" = CreateRandomPassword 10
         "MYSQL_ROOT_PASSWORD" = CreateRandomPassword 10
         "POSTGRES_PASSWORD" = CreateRandomPassword 10
+        "RABBITMQ_PASSWORD" = CreateRandomPassword 10
     }
 
     $passwords.GetEnumerator() | Sort-Object Key | ForEach-Object {
         $_.Key + "=" + $_.Value
-    } | Out-File $envFilePath
+    } | Out-File $envFilePath -Encoding utf8
     Write-Host ""
     Write-Host "File content:" -ForegroundColor Yellow
     Get-Content $envFilePath

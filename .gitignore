@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
+# Password File
+_passwords.env
+
 # Docker Volume
 volumes/
 

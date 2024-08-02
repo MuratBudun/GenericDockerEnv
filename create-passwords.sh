@@ -37,6 +37,7 @@ create_env_file() {
         "MONGO_ROOT_PASSWORD=$(create_random_password 10)"
         "MYSQL_ROOT_PASSWORD=$(create_random_password 10)"
         "POSTGRES_PASSWORD=$(create_random_password 10)"
+        "RABBITMQ_PASSWORD=$(create_random_password 10)"
     )
 
     printf "%s\n" "${passwords[@]}" > "$env_file_path"

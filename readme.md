@@ -9,6 +9,7 @@
 - PostgreSQL | https://www.postgresql.org/
 - pgAdmin | https://www.pgadmin.org/
 - DbGate | https://dbgate.org/
+- RabbitMQ | https://www.rabbitmq.com/
 
 ![image](https://github.com/user-attachments/assets/14220195-5161-4159-82de-cde430dff623)
 
@@ -180,3 +181,16 @@ http://localhost:8084
 ![image](https://github.com/user-attachments/assets/68b71b0a-5f1d-4c15-9f26-bb55a79bb7c8)
 
 ![image](https://github.com/user-attachments/assets/c3aa7135-33b9-4289-b32d-5b758b64dda0)
+
+## RabbitMQ
+### Connection
+* Server: **localhost**
+* Port: **5672**
+* Internal Port: **5672**
+* User: **rmq-admin**
+* Password: **{RABBITMQ_PASSWORD}**
+
+### Management
+* http://localhost:15672
+* user: rmq-admin
+* password: **{RABBITMQ_PASSWORD}**
