@@ -9,11 +9,13 @@
 - PostgreSQL | https://www.postgresql.org/
 - pgAdmin | https://www.pgadmin.org/
 - DbGate | https://dbgate.org/
+- RabbitMQ | https://www.rabbitmq.com/
 
 ![image](https://github.com/user-attachments/assets/14220195-5161-4159-82de-cde430dff623)
 
 # Prerequisites
-* [Docker](https://www.docker.com)
+* [Docker](https://www.docker.com) 
+  * Recommended Docker version **4.33.0**
 * Windows
   * [Set up Linux Containers on Windows 10](https://learn.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-start-windows-10-linux)
   * [PowerShell](https://learn.microsoft.com/en-us/powershell/)
@@ -50,13 +52,27 @@ Password file path: **./env/_passwords.env**
   ```bash
   ./create-passwords.sh
   ```
+* Manuel
+Create "**_password.env**" file in "**env**" folder.
+  ```
+  MSSQL_SA_PASSWORD=
+  MONGO_ROOT_PASSWORD=
+  MYSQL_ROOT_PASSWORD=
+  POSTGRES_PASSWORD=
+  RABBITMQ_PASSWORD=
+  ```
 
 ### Recreate Passwords
 > [!IMPORTANT]
 > This process will cause you to lose your data.
-> **MySQL, PostgreSQL** and **Microsoft SQL Server 2022** keep passwords in the **./volumes** directory. 
-> These programs will not work when you **re-create** your password. You can activate new passwords by deleting the relevant program data from the volumes folder. 
-> Before doing this, close the running applications with the "**.\docker-compose.ps1 all down**" command. (Linux / macOS "**.\docker-compose.sh all down**")
+> 
+> **MySQL, PostgreSQL** and **Microsoft SQL Server 2022** keep passwords in the **./volumes** directory.
+> 
+> These programs will not work when you **re-create** your password. You can activate new passwords by deleting the relevant program data from the volumes folder.
+> 
+> Before doing this, close the running applications with the "**.\docker-compose.ps1 all down**" command.
+>
+> Linux / macOS "**./docker-compose.sh all down**"
 
 Password file path: **./env/_passwords.env**
 * Windows
@@ -102,6 +118,10 @@ Password file path: **./env/_passwords.env**
   ```
   docker compose -f ./compose/docker-compose-dbgate.yml --env-file ./env/_passwords.env --env-file ./env/dbgate.env up -d
   ```
+> [!IMPORTANT]
+> Make sure your docker version supports multiple **--env-file**
+> 
+> Recommended Docker version **4.33.0**
 
 ## DbGate
 http://localhost:8082
@@ -180,3 +200,16 @@ http://localhost:8084
 ![image](https://github.com/user-attachments/assets/68b71b0a-5f1d-4c15-9f26-bb55a79bb7c8)
 
 ![image](https://github.com/user-attachments/assets/c3aa7135-33b9-4289-b32d-5b758b64dda0)
+
+## RabbitMQ
+### Connection
+* Server: **localhost**
+* Port: **5672**
+* Internal Port: **5672**
+* User: **rmq-admin**
+* Password: **{RABBITMQ_PASSWORD}**
+
+### Management
+* http://localhost:15672
+* user: rmq-admin
+* password: **{RABBITMQ_PASSWORD}**

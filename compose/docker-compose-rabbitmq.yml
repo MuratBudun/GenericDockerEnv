@@ -1,0 +1,27 @@
+services:
+  gen-rabbitmq:
+    image: rabbitmq:3.13-management
+    container_name: 'gen-rabbitmq'
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+        - gen_dev_net
+    volumes:
+      - ../volumes/rabbitmq/data:/var/lib/rabbitmq
+      - ../volumes/rabbitmq/log:/var/log/rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: rmq-admin
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
+      RABBITMQ_DEFAULT_VHOST: gen-rabbitmq
+      RABBITMQ_NODENAME: gen-rabbitmq
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 3
+ 
+networks:
+  gen_dev_net:
+    external: true
+    driver: bridge      
