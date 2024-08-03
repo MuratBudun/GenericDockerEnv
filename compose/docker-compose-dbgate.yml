@@ -1,4 +1,3 @@
-version: "3.2"
 services:
   gen-dbgate:
     image: dbgate/dbgate

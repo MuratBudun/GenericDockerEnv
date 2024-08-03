@@ -14,7 +14,7 @@
 ![image](https://github.com/user-attachments/assets/14220195-5161-4159-82de-cde430dff623)
 
 # Prerequisites
-* [Docker](https://www.docker.com)
+* [Docker](https://www.docker.com) Version 4.33.0
 * Windows
   * [Set up Linux Containers on Windows 10](https://learn.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-start-windows-10-linux)
   * [PowerShell](https://learn.microsoft.com/en-us/powershell/)
@@ -50,6 +50,15 @@ Password file path: **./env/_passwords.env**
 * Linux / macOS
   ```bash
   ./create-passwords.sh
+  ```
+* Manuel
+Create "**_password.env**" file in "**env**" folder.
+  ```
+  MSSQL_SA_PASSWORD=
+  MONGO_ROOT_PASSWORD=
+  MYSQL_ROOT_PASSWORD=
+  POSTGRES_PASSWORD=
+  RABBITMQ_PASSWORD=
   ```
 
 ### Recreate Passwords
