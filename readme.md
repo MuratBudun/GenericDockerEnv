@@ -14,7 +14,8 @@
 ![image](https://github.com/user-attachments/assets/14220195-5161-4159-82de-cde430dff623)
 
 # Prerequisites
-* [Docker](https://www.docker.com) Version 4.33.0
+* [Docker](https://www.docker.com) 
+  * Recommended Docker version **4.33.0**
 * Windows
   * [Set up Linux Containers on Windows 10](https://learn.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-start-windows-10-linux)
   * [PowerShell](https://learn.microsoft.com/en-us/powershell/)
@@ -112,6 +113,9 @@ Password file path: **./env/_passwords.env**
   ```
   docker compose -f ./compose/docker-compose-dbgate.yml --env-file ./env/_passwords.env --env-file ./env/dbgate.env up -d
   ```
+  > [!IMPORTANT]
+  > Make sure your docker version supports multiple **--env-file**
+  > Recommended Docker version **4.33.0**
 
 ## DbGate
 http://localhost:8082
