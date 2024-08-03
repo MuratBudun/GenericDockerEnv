@@ -65,9 +65,14 @@ Create "**_password.env**" file in "**env**" folder.
 ### Recreate Passwords
 > [!IMPORTANT]
 > This process will cause you to lose your data.
-> **MySQL, PostgreSQL** and **Microsoft SQL Server 2022** keep passwords in the **./volumes** directory. 
-> These programs will not work when you **re-create** your password. You can activate new passwords by deleting the relevant program data from the volumes folder. 
-> Before doing this, close the running applications with the "**.\docker-compose.ps1 all down**" command. (Linux / macOS "**.\docker-compose.sh all down**")
+> 
+> **MySQL, PostgreSQL** and **Microsoft SQL Server 2022** keep passwords in the **./volumes** directory.
+> 
+> These programs will not work when you **re-create** your password. You can activate new passwords by deleting the relevant program data from the volumes folder.
+> 
+> Before doing this, close the running applications with the "**.\docker-compose.ps1 all down**" command.
+>
+> Linux / macOS "**./docker-compose.sh all down**"
 
 Password file path: **./env/_passwords.env**
 * Windows
@@ -113,9 +118,10 @@ Password file path: **./env/_passwords.env**
   ```
   docker compose -f ./compose/docker-compose-dbgate.yml --env-file ./env/_passwords.env --env-file ./env/dbgate.env up -d
   ```
-  > [!IMPORTANT]
-  > Make sure your docker version supports multiple **--env-file**
-  > Recommended Docker version **4.33.0**
+> [!IMPORTANT]
+> Make sure your docker version supports multiple **--env-file**
+> 
+> Recommended Docker version **4.33.0**
 
 ## DbGate
 http://localhost:8082
